@@ -2,6 +2,7 @@ import 'package:ai_barcode/src/creator/ai_barcode_mobile_creator_plugin.dart';
 import 'package:ai_barcode/src/scanner/ai_barcode_mobile_scanner_plugin.dart';
 import 'package:ai_barcode_platform_interface/ai_barcode_platform_interface.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 ///
 /// PlatformScannerWidget
@@ -95,7 +96,8 @@ class ScannerController {
   /// Result
   Function(String result) _scannerResult;
   Function() _scannerViewCreated;
-
+  MethodChannel _methodChannel =
+  MethodChannel("view_type_id_scanner_view_method_channel");
   ///
   /// Constructor.
   ScannerController({
@@ -116,8 +118,13 @@ class ScannerController {
 
   ///
   /// Start camera without open QRCode、BarCode scanner,this is just open camera.
-  startCamera() {
-    AiBarcodeScannerPlatform.instance.startCamera();
+  startCameraFront() {
+    _methodChannel.invokeMethod("startCameraFront");
+    //AiBarcodeScannerPlatform.instance.startCamera();
+  }
+  startCameraBack() {
+    _methodChannel.invokeMethod("startCameraBack");
+    //AiBarcodeScannerPlatform.instance.startCamera();
   }
 
   ///

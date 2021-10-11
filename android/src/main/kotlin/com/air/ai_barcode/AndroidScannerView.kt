@@ -45,7 +45,8 @@ class AndroidScannerView(binaryMessenger: BinaryMessenger, context: Context, vie
 
         this.channelResult = result;
         when (call.method) {
-            "startCamera" -> startCamera()
+            "startCameraFront" -> startCameraFront()
+            "startCameraBack" -> startCameraBack()
             "stopCamera" -> stopCamera()
             "resumeCameraPreview" -> resumeCameraPreview()
             "stopCameraPreview" -> stopCameraPreview()
@@ -98,8 +99,11 @@ class AndroidScannerView(binaryMessenger: BinaryMessenger, context: Context, vie
     override fun onFlutterViewAttached(flutterView: View) {
     }
 
-    private fun startCamera() {
+    private fun startCameraFront() {
         zxing.startCamera(1);
+    } 
+    private fun startCameraBack() {
+        zxing.startCamera(0);
     }
 
     private fun stopCamera() {
